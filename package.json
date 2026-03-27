@@ -1,0 +1,30 @@
+{
+  "name": "cp3010-assignment-3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "populate": "node db/populatedb.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Myo0/CP3010-Assignment-3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Myo0/CP3010-Assignment-3/issues"
+  },
+  "homepage": "https://github.com/Myo0/CP3010-Assignment-3#readme",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "pg": "^8.20.0"
+  }
+}

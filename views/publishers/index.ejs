@@ -1,0 +1,31 @@
+<%- include('../partials/header') %>
+
+<h1>Publishers</h1>
+<a href="/publishers/create" class="btn">+ Add Publisher</a>
+
+<% if (publishers.length === 0) { %>
+    <p>No publishers added yet.</p>
+<% } else { %>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Country</th>
+            <th>Books</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (var i = 0; i < publishers.length; i++) { %>
+        <tr>
+            <td><a href="/publishers/<%= publishers[i].id %>"><%= publishers[i].name %></a></td>
+            <td><%= publishers[i].country || '—' %></td>
+            <td><%= publishers[i].book_count %></td>
+            <td><a href="/publishers/<%= publishers[i].id %>" class="btn">View</a></td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>
+<% } %>
+
+<%- include('../partials/footer') %>

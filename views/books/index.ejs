@@ -1,0 +1,39 @@
+<%- include('../partials/header') %>
+
+<h1>Books & Manga</h1>
+<a href="/books/create" class="btn">+ Add New</a>
+
+<% if (books.length === 0) { %>
+    <p>No books or manga in the inventory yet.</p>
+<% } else { %>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Type</th>
+            <th>Genre</th>
+            <th>Publisher</th>
+            <th>Stock</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (var i = 0; i < books.length; i++) { %>
+        <tr>
+            <td><a href="/books/<%= books[i].id %>"><%= books[i].title %><% if (books[i].volume) { %> Vol.<%= books[i].volume %><% } %></a></td>
+            <td><%= books[i].author %></td>
+            <td><span class="badge-<%= books[i].type %>"><%= books[i].type %></span></td>
+            <td><%= books[i].genre_name || '—' %></td>
+            <td><%= books[i].publisher_name || '—' %></td>
+            <td><%= books[i].stock %></td>
+            <td><% if (books[i].price) { %>$<%= parseFloat(books[i].price).toFixed(2) %><% } else { %>—<% } %></td>
+            <td><a href="/books/<%= books[i].id %>" class="btn">View</a></td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>
+<% } %>
+
+<%- include('../partials/footer') %>

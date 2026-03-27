@@ -1,0 +1,31 @@
+<%- include('../partials/header') %>
+
+<h1><%= publisher ? 'Edit Publisher' : 'Add New Publisher' %></h1>
+
+<% if (error) { %>
+    <div class="alert-error">
+        <% if (error === 'wrong_password') { %>Incorrect admin password. Changes were not saved.
+        <% } else { %><%= error %><% } %>
+    </div>
+<% } %>
+
+<form action="<%= publisher ? '/publishers/' + publisher.id + '/edit' : '/publishers/create' %>" method="POST">
+
+    <label for="name">Publisher Name *</label>
+    <input type="text" id="name" name="name" required value="<%= publisher ? publisher.name : '' %>">
+
+    <label for="country">Country</label>
+    <input type="text" id="country" name="country" value="<%= (publisher && publisher.country) ? publisher.country : '' %>">
+
+    <% if (publisher) { %>
+    <label for="admin_password" style="color:red;">Admin Password (required to save changes)</label>
+    <input type="password" id="admin_password" name="admin_password" class="admin-input" placeholder="Admin password">
+    <% } %>
+
+    <br>
+    <button type="submit" class="btn"><%= publisher ? 'Save Changes' : 'Add Publisher' %></button>
+    <a href="<%= publisher ? '/publishers/' + publisher.id : '/publishers' %>" class="btn">Cancel</a>
+
+</form>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,24 @@
+<%- include('partials/header') %>
+
+<h1>Manga & Book Inventory</h1>
+<p>Track your collection of books and manga.</p>
+
+<hr>
+
+<p><strong><%= bookCount %></strong> books/manga &nbsp;|&nbsp; <strong><%= genreCount %></strong> genres &nbsp;|&nbsp; <strong><%= publisherCount %></strong> publishers</p>
+
+<p>
+    <a href="/books" class="btn">View Books</a>
+    <a href="/genres" class="btn">View Genres</a>
+    <a href="/publishers" class="btn">View Publishers</a>
+</p>
+
+<hr>
+
+<p>
+    <a href="/books/create" class="btn">+ Add Book/Manga</a>
+    <a href="/genres/create" class="btn">+ Add Genre</a>
+    <a href="/publishers/create" class="btn">+ Add Publisher</a>
+</p>
+
+<%- include('partials/footer') %>

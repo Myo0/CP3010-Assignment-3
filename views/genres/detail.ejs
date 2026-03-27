@@ -1,0 +1,42 @@
+<%- include('../partials/header') %>
+
+<% if (error === 'wrong_password') { %>
+    <div class="alert-error">Incorrect admin password. Action was not performed.</div>
+<% } else if (error === 'has_books') { %>
+    <div class="alert-error">Cannot delete — this genre still has books assigned to it.</div>
+<% } %>
+
+<h1><%= genre.name %></h1>
+
+<a href="/genres/<%= genre.id %>/edit" class="btn">Edit</a>
+<a href="/genres" class="btn">Back to Genres</a>
+
+<h2>Books in this genre (<%= books.length %>)</h2>
+
+<% if (books.length === 0) { %>
+    <p>No books assigned to this genre yet.</p>
+<% } else { %>
+<ul>
+    <% for (var i = 0; i < books.length; i++) { %>
+    <li>
+        <a href="/books/<%= books[i].id %>"><%= books[i].title %><% if (books[i].volume) { %> Vol.<%= books[i].volume %><% } %></a>
+        <span class="badge-<%= books[i].type %>"><%= books[i].type %></span>
+    </li>
+    <% } %>
+</ul>
+<% } %>
+
+<div class="danger-zone">
+    <h3>Delete this genre</h3>
+    <% if (books.length > 0) { %>
+        <p>You cannot delete this genre while it has books assigned. Remove or reassign the books first.</p>
+    <% } %>
+    <form action="/genres/<%= genre.id %>/delete" method="POST">
+        <label for="admin_password">Admin Password (required to delete)</label>
+        <input type="password" id="admin_password" name="admin_password" class="admin-input" placeholder="Enter admin password">
+        <br>
+        <button type="submit" class="btn btn-danger" <%= books.length > 0 ? 'disabled' : '' %> onclick="return confirm('Delete this genre?')">Delete Genre</button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

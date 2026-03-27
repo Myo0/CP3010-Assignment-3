@@ -1,0 +1,28 @@
+<%- include('../partials/header') %>
+
+<h1><%= genre ? 'Edit Genre' : 'Add New Genre' %></h1>
+
+<% if (error) { %>
+    <div class="alert-error">
+        <% if (error === 'wrong_password') { %>Incorrect admin password. Changes were not saved.
+        <% } else { %><%= error %><% } %>
+    </div>
+<% } %>
+
+<form action="<%= genre ? '/genres/' + genre.id + '/edit' : '/genres/create' %>" method="POST">
+
+    <label for="name">Genre Name *</label>
+    <input type="text" id="name" name="name" required value="<%= genre ? genre.name : '' %>">
+
+    <% if (genre) { %>
+    <label for="admin_password" style="color:red;">Admin Password (required to save changes)</label>
+    <input type="password" id="admin_password" name="admin_password" class="admin-input" placeholder="Admin password">
+    <% } %>
+
+    <br>
+    <button type="submit" class="btn"><%= genre ? 'Save Changes' : 'Add Genre' %></button>
+    <a href="<%= genre ? '/genres/' + genre.id : '/genres' %>" class="btn">Cancel</a>
+
+</form>
+
+<%- include('../partials/footer') %>

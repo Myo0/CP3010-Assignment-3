@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+
+<% if (error === 'wrong_password') { %>
+    <div class="alert-error">Incorrect admin password. Action was not performed.</div>
+<% } else if (error === 'has_books') { %>
+    <div class="alert-error">Cannot delete — this publisher still has books assigned to it.</div>
+<% } %>
+
+<h1><%= publisher.name %></h1>
+<p><strong>Country:</strong> <%= publisher.country || '—' %></p>
+
+<a href="/publishers/<%= publisher.id %>/edit" class="btn">Edit</a>
+<a href="/publishers" class="btn">Back to Publishers</a>
+
+<h2>Books by this publisher (<%= books.length %>)</h2>
+
+<% if (books.length === 0) { %>
+    <p>No books assigned to this publisher yet.</p>
+<% } else { %>
+<ul>
+    <% for (var i = 0; i < books.length; i++) { %>
+    <li>
+        <a href="/books/<%= books[i].id %>"><%= books[i].title %><% if (books[i].volume) { %> Vol.<%= books[i].volume %><% } %></a>
+        <span class="badge-<%= books[i].type %>"><%= books[i].type %></span>
+    </li>
+    <% } %>
+</ul>
+<% } %>
+
+<div class="danger-zone">
+    <h3>Delete this publisher</h3>
+    <% if (books.length > 0) { %>
+        <p>You cannot delete this publisher while it has books assigned. Remove or reassign the books first.</p>
+    <% } %>
+    <form action="/publishers/<%= publisher.id %>/delete" method="POST">
+        <label for="admin_password">Admin Password (required to delete)</label>
+        <input type="password" id="admin_password" name="admin_password" class="admin-input" placeholder="Enter admin password">
+        <br>
+        <button type="submit" class="btn btn-danger" <%= books.length > 0 ? 'disabled' : '' %> onclick="return confirm('Delete this publisher?')">Delete Publisher</button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

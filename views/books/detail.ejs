@@ -1,0 +1,33 @@
+<%- include('../partials/header') %>
+
+<% if (typeof error !== 'undefined' && error === 'wrong_password') { %>
+    <div class="alert-error">Incorrect admin password. Action was not performed.</div>
+<% } %>
+
+<h1><%= book.title %><% if (book.volume) { %> Vol. <%= book.volume %><% } %> <span class="badge-<%= book.type %>"><%= book.type %></span></h1>
+
+<p><strong>Author:</strong> <%= book.author %></p>
+<p><strong>Genre:</strong> <% if (book.genre_name) { %><a href="/genres/<%= book.genre_id %>"><%= book.genre_name %></a><% } else { %>—<% } %></p>
+<p><strong>Publisher:</strong> <% if (book.publisher_name) { %><a href="/publishers/<%= book.publisher_id %>"><%= book.publisher_name %></a><% } else { %>—<% } %></p>
+<p><strong>Price:</strong> <% if (book.price) { %>$<%= parseFloat(book.price).toFixed(2) %><% } else { %>—<% } %></p>
+<p><strong>Stock:</strong> <%= book.stock %></p>
+<% if (book.description) { %>
+<p><strong>Description:</strong> <%= book.description %></p>
+<% } %>
+
+<p>
+    <a href="/books/<%= book.id %>/edit" class="btn">Edit</a>
+    <a href="/books" class="btn">Back to List</a>
+</p>
+
+<div class="danger-zone">
+    <h3>Delete this entry</h3>
+    <form action="/books/<%= book.id %>/delete" method="POST">
+        <label for="admin_password">Admin Password (required to delete)</label>
+        <input type="password" id="admin_password" name="admin_password" class="admin-input" placeholder="Enter admin password">
+        <br>
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>
